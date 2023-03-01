@@ -1,4 +1,11 @@
 # TP-Bomb
+
+## Forward
+
+    URL batch test function will generate problems, please do not open the agent when using the project is not currently considered maintenance, the master is interested in secondary development or development of a better use, ha~ha~ha.
+
+    URL批量测试功能会产生问题，使用时请不要开启代理，项目目前不考虑维护啦，师傅们感兴趣可以二次开发或者开发一款更好用的，哈哈哈哈
+
 ## Introduction
 
     A ThinkPHP vulnerability detection and utilization tool with a graphical interface. (Used to learn JavaFX practice projects, after writing, I know that there are many places that are like shit, barely usable, although there are few TP vulnerabilities in actual combat at present.)
@@ -68,9 +75,3 @@
     下面利用GIF来简略演示了一下如何使用该工具
 
 ![usage-gif](./img/usage.gif)
-
-## Bug
-
-    URL batch test function will generate problems, please do not open the agent when using the project is not currently considered maintenance, the master is interested in secondary development or development of a better use, ha~ha~ha.
-
-    URL批量测试功能会产生问题，使用时请不要开启代理，项目目前不考虑维护啦，师傅们感兴趣可以二次开发或者开发一款更好用的，哈哈哈哈
